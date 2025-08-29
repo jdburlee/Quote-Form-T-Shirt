@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>T-Shirt Quote Form (No-Backend Demo)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+  <!-- NOTE: No CSP needed. If you later add one, keep tailwindcdn + google fonts allowed. -->
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen py-8">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <!-- Header -->
+      <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
+        <h1 class="text-3xl font-bold text-white">T-Shirt Quote Request</h1>
+        <p class="text-blue-100 mt-2">Get an instant estimate for your custom t-shirt order</p>
+      </div>
+
+      <!-- FORM -->
+      <form id="quoteForm" class="p-8 space-y-8" novalidate>
+        <!-- Contact Information -->
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Full Name *</label>
+            <input name="full_name" type="text" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+            <input name="company_name" type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Optional">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address *</label>
+            <input name="email" type="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+          </div>
+        </div>
+
+        <!-- T-Shirt Options -->
+        <div class="space-y-6">
+          <h3 class="text-xl font-semibold text-gray-800 border-b border-gray-200 pb-2">T-Shirt Specifications</h3>
+
+          <!-- Style Selection -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">T-Shirt Style *</label>
+            <div class="grid md:grid-cols-3 gap-4">
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="style" value="basic" class="text-blue-600 mr-3" required>
+                <div>
+                  <div class="font-medium">Basic Tee</div>
+                  <div class="text-sm text-gray-500">100% Cotton</div>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="style" value="premium" class="text-blue-600 mr-3">
+                <div>
+                  <div class="font-medium">Premium Tee</div>
+                  <div class="text-sm text-gray-500">Cotton Blend</div>
+                </div>
+              </label>
+              <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="style" value="performance" class="text-blue-600 mr-3">
+                <div>
+                  <div class="font-medium">Performance</div>
+                  <div class="text-sm text-gray-500">Moisture-Wicking</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Quantity and Sizes -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Total Quantity *</label>
+              <input name="quantity" id="quantity" type="number" min="1" placeholder="Enter quantity (e.g. 25, 100, 500)" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" required>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Size Breakdown</label>
+              <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">Small</label>
+                  <input name="size_sm" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">Medium</label>
+                  <input name="size_md" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">Large</label>
+                  <input name="size_lg" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">X-Large</label>
+                  <input name="size_xl" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">2X-Large</label>
+                  <input name="size_2xl" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">3X-Large</label>
+                  <input name="size_3xl" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+                <div class="flex flex-col">
+                  <label class="text-xs font-medium text-gray-600 mb-1">4X-Large</label>
+                  <input name="size_4xl" type="number" min="0" placeholder="0" class="px-3 py-2 border border-gray-300 rounded-lg text-center focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Printing Options -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">Printing Method *</label>
+            <div class="space-y-3">
+              <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="printing" value="screen" class="text-blue-600 mt-1 mr-3" required>
+                <div>
+                  <div class="font-medium">Direct to Garment Printing (DTG)</div>
+                  <div class="text-sm text-gray-500">Water-based inks sprayed on and cured; great feel, durable; best on cotton.</div>
+                </div>
+              </label>
+              <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="printing" value="vinyl" class="text-blue-600 mt-1 mr-3">
+                <div>
+                  <div class="font-medium">Direct to Film (DTF)</div>
+                  <div class="text-sm text-gray-500">Colorful designs; heat-press transfer; great for synthetics.</div>
+                </div>
+              </label>
+              <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="printing" value="embroidery" class="text-blue-600 mt-1 mr-3">
+                <div>
+                  <div class="font-medium">Embroidery</div>
+                  <div class="text-sm text-gray-500">Premium look; perfect for logos.</div>
+                </div>
+              </label>
+              <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
+                <input type="radio" name="printing" value="sublimation" class="text-blue-600 mt-1 mr-3">
+                <div>
+                  <div class="font-medium">Sublimation</div>
+                  <div class="text-sm text-gray-500">Infuses into fabric; soft feel; best on light colors.</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Colors -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-3">T-Shirt Colors *</label>
+            <div id="colorNote" class="text-sm text-blue-600 mb-3 hidden">
+              <span id="colorNoteText"></span>
+            </div>
+            <div id="colorOptions" class="grid grid-cols-4 md:grid-cols-8 gap-3">
+              <!-- populated by JS -->
+            </div>
+          </div>
+
+          <!-- Design Details -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Print Locations</label>
+            <div class="space-y-2">
+              <label class="flex items-center">
+                <input type="checkbox" name="print_locations" value="front" class="text-blue-600 mr-2">
+                <span class="text-sm">Front</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" name="print_locations" value="back" class="text-blue-600 mr-2">
+                <span class="text-sm">Back</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" name="print_locations" value="left_sleeve" class="text-blue-600 mr-2">
+                <span class="text-sm">Left Sleeve</span>
+              </label>
+              <label class="flex items-center">
+                <input type="checkbox" name="print_locations" value="right_sleeve" class="text-blue-600 mr-2">
+                <span class="text-sm">Right Sleeve</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- File Upload -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Design Files</label>
+            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+              <div class="mb-4">
+                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                  <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <input name="attachments" type="file" id="designFiles" multiple accept=".png,.jpg,.jpeg,.svg,.pdf" class="hidden" onchange="handleFileUpload(this)">
+              <label for="designFiles" class="cursor-pointer">
+                <span class="text-blue-600 font-medium hover:text-blue-500">Click to upload files</span>
+                <span class="text-gray-500"> or drag and drop</span>
+              </label>
+              <p class="text-sm text-gray-500 mt-2">PNG, JPG, SVG, PDF up to 10MB each</p>
+              <div id="fileList" class="mt-4 space-y-2 hidden"></div>
+            </div>
+          </div>
+
+          <!-- Additional Details -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">Design Description / Special Requests</label>
+            <textarea name="notes" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" placeholder="Describe your design, any special requirements, or questions you have..."></textarea>
+          </div>
+
+          <!-- Timeline -->
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-2">When do you need this completed?</label>
+            <select name="timeline" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
+              <option value="">Select timeline</option>
+              <option value="rush">Rush (1-2 weeks) — Additional fees apply</option>
+              <option value="standard">Standard (2-3 weeks)</option>
+              <option value="flexible">Flexible (3+ weeks)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center pt-6 border-t border-gray-200">
+          <button type="submit" class="w-full max-w-md bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 rounded-lg transition-colors">
+            Request Official Quote
+          </button>
+        </div>
+
+        <p class="text-sm text-gray-500 text-center">
+          <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
+          Demo: no data is sent anywhere. You’ll see a summary after submit.
+        </p>
+      </form>
+
+      <!-- SUCCESS PANEL -->
+      <div id="successPanel" class="p-8 hidden">
+        <div class="flex items-center gap-3 text-green-700 mb-4">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M20 7L9 18l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h2 class="text-xl font-semibold">Thanks! Your quote request was captured locally.</h2>
+        </div>
+        <p class="text-gray-600 mb-4">Because this demo has no backend, nothing was sent. You can copy the summary below and email it manually.</p>
+
+        <pre id="summary" class="bg-gray-50 rounded-lg border border-gray-200 p-4 text-sm overflow-auto whitespace-pre-wrap"></pre>
+
+        <div class="mt-4 flex flex-wrap gap-3">
+          <button id="copyBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg">Copy Summary</button>
+          <button id="editAgain" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-4 py-2 rounded-lg">Edit Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="fixed bottom-4 left-4 z-50 hidden">
+    <div class="bg-white border border-gray-300 rounded-lg shadow-lg px-4 py-3 text-sm">
+      <span id="toastText"></span>
+    </div>
+  </div>
+
+  <script>
+    /* --------------------- COLOR OPTIONS --------------------- */
+    const colorOptions = {
+      screen: {
+        colors: [
+          { value: 'white', name: 'White', style: 'background-color: #fffefa', border: 'border-gray-300' },
+          { value: 'ash', name: 'Ash', style: 'background-color: #f3f3f3' },
+          { value: 'light-pink', name: 'Light Pink', style: 'background-color: #ffd4d5' },
+          { value: 'sky', name: 'Sky', style: 'background-color: #8ee0ff' },
+          { value: 'daisy', name: 'Daisy', style: 'background-color: #ffc946' },
+          { value: 'lime', name: 'Lime', style: 'background-color: #a3e05a' },
+          { value: 'sport-grey', name: 'Sport Grey', style: 'background-color: #c4c0be' },
+          { value: 'gold', name: 'Gold', style: 'background-color: #ffb22d' },
+          { value: 'irish-green', name: 'Irish Green', style: 'background-color: #00ba69' },
+          { value: 'graphite-heather', name: 'Graphite Heather', style: 'background-color: #858585' },
+          { value: 'tropical-blue', name: 'Tropical Blue', style: 'background-color: #00a0b3' },
+          { value: 'orange', name: 'Orange', style: 'background-color: #ff5f2e' },
+          { value: 'military-green', name: 'Military Green', style: 'background-color: #737a5f' },
+          { value: 'heliconia', name: 'Heliconia', style: 'background-color: #e33f7a' },
+          { value: 'sapphire', name: 'Sapphire', style: 'background-color: #007ab3' },
+          { value: 'forest-green', name: 'Forest Green', style: 'background-color: #1a3b23' },
+          { value: 'red', name: 'Red', style: 'background-color: #d80019' },
+          { value: 'navy', name: 'Navy', style: 'background-color: #1a2330' },
+          { value: 'black', name: 'Black', style: 'background-color: #141313' },
+          { value: 'maroon', name: 'Maroon', style: 'background-color: #47001b' },
+          { value: 'solid-white-blend', name: 'Solid White Blend', style: 'background-color: #FCFCFC', border: 'border-gray-300' },
+          { value: 'heather-ice-blue', name: 'Heather Ice Blue', style: 'background-color: #e8fdff' },
+          { value: 'heather-natural', name: 'Heather Natural', style: 'background-color: #f9e9cf' },
+          { value: 'heather-prism-ice-blue', name: 'Heather Prism Ice Blue', style: 'background-color: #c3e2e3' },
+          { value: 'athletic-heather', name: 'Athletic Heather', style: 'background-color: #cececc' },
+          { value: 'heather-prism-peach', name: 'Heather Prism Peach', style: 'background-color: #f3c2b2' },
+          { value: 'heather-prism-mint', name: 'Heather Prism Mint', style: 'background-color: #aad5b9' },
+          { value: 'heather-carolina-blue', name: 'Heather Carolina Blue', style: 'background-color: #ABC3EF' },
+          { value: 'heather-prism-dusty-blue', name: 'Heather Prism Dusty Blue', style: 'background-color: #a5c8bc' },
+          { value: 'heather-yellow-gold', name: 'Heather Yellow Gold', style: 'background-color: #FFB834' },
+          { value: 'heather-prism-lilac', name: 'Heather Prism Lilac', style: 'background-color: #deafcd' },
+          { value: 'heather-columbia-blue', name: 'Heather Columbia Blue', style: 'background-color: #7d95e8' },
+          { value: 'heather-team-purple', name: 'Heather Team Purple', style: 'background-color: #b680c1' },
+          { value: 'heather-aqua', name: 'Heather Aqua', style: 'background-color: #27a8c8' },
+          { value: 'heather-autumn', name: 'Heather Autumn', style: 'background-color: #d5743f' },
+          { value: 'heather-mauve', name: 'Heather Mauve', style: 'background-color: #b2736f' },
+          { value: 'heather-grass-green', name: 'Heather Grass Green', style: 'background-color: #477749' },
+          { value: 'heather-slate', name: 'Heather Slate', style: 'background-color: #4c626e' },
+          { value: 'heather-olive', name: 'Heather Olive', style: 'background-color: #5c5531' },
+          { value: 'heather-red', name: 'Heather Red', style: 'background-color: #D44f5b' }
+        ],
+        note: 'DTG printing: unlimited colors, best on cotton. Solid colors 100% cotton; heathers are cotton/poly blends.'
+      },
+      vinyl: {
+        colors: [
+          { value: 'safety-yellow', name: 'Safety Yellow', style: 'background-color: #E6FE1A' },
+          { value: 'white', name: 'White', style: 'background-color: #ffffff', border: 'border-gray-300' },
+          { value: 'silver', name: 'Silver', style: 'background-color: #e3e3e3' },
+          { value: 'graphite', name: 'Graphite', style: 'background-color: #818181' },
+          { value: 'safety-orange', name: 'Safety Orange', style: 'background-color: #ff4300' },
+          { value: 'royal', name: 'Royal', style: 'background-color: #1c5baa' },
+          { value: 'purple', name: 'Purple', style: 'background-color: #58367b' },
+          { value: 'forest-green', name: 'Forest Green', style: 'background-color: #00572f' },
+          { value: 'navy', name: 'Navy', style: 'background-color: #1f3045' },
+          { value: 'black', name: 'Black', style: 'background-color: #191919' },
+          { value: 'red', name: 'Red', style: 'background-color: #e11124' },
+          { value: 'solid-white-blend', name: 'Solid White Blend', style: 'background-color: #FCFCFC', border: 'border-gray-300' },
+          { value: 'heather-ice-blue', name: 'Heather Ice Blue', style: 'background-color: #e8fdff' },
+          { value: 'heather-natural', name: 'Heather Natural', style: 'background-color: #f9e9cf' },
+          { value: 'heather-prism-ice-blue', name: 'Heather Prism Ice Blue', style: 'background-color: #c3e2e3' },
+          { value: 'athletic-heather', name: 'Athletic Heather', style: 'background-color: #cececc' },
+          { value: 'heather-prism-peach', name: 'Heather Prism Peach', style: 'background-color: #f3c2b2' },
+          { value: 'heather-prism-mint', name: 'Heather Prism Mint', style: 'background-color: #aad5b9' },
+          { value: 'heather-carolina-blue', name: 'Heather Carolina Blue', style: 'background-color: #ABC3EF' },
+          { value: 'heather-prism-dusty-blue', name: 'Heather Prism Dusty Blue', style: 'background-color: #a5c8bc' },
+          { value: 'heather-yellow-gold', name: 'Heather Yellow Gold', style: 'background-color: #FFB834' },
+          { value: 'heather-prism-lilac', name: 'Heather Prism Lilac', style: 'background-color: #deafcd' },
+          { value: 'heather-columbia-blue', name: 'Heather Columbia Blue', style: 'background-color: #7d95e8' },
+          { value: 'heather-team-purple', name: 'Heather Team Purple', style: 'background-color: #b680c1' },
+          { value: 'heather-aqua', name: 'Heather Aqua', style: 'background-color: #27a8c8' },
+          { value: 'heather-autumn', name: 'Heather Autumn', style: 'background-color: #d5743f' },
+          { value: 'heather-mauve', name: 'Heather Mauve', style: 'background-color: #b2736f' },
+          { value: 'heather-grass-green', name: 'Heather Grass Green', style: 'background-color: #477749' },
+          { value: 'heather-slate', name: 'Heather Slate', style: 'background-color: #4c626e' },
+          { value: 'heather-olive', name: 'Heather Olive', style: 'background-color: #5c5531' },
+          { value: 'heather-red', name: 'Heather Red', style: 'background-color: #D44f5b' }
+        ],
+        note: 'DTF works great on synthetics. Solids: polyester; heathers are cotton/poly blends.'
+      },
+      embroidery: {
+        colors: [
+          { value: 'white', name: 'White', bg: 'bg-white', border: 'border-gray-300' },
+          { value: 'black', name: 'Black', bg: 'bg-black' },
+          { value: 'navy', name: 'Navy', bg: 'bg-blue-900' },
+          { value: 'red', name: 'Red', bg: 'bg-red-600' },
+          { value: 'green', name: 'Green', bg: 'bg-green-600' },
+          { value: 'gray', name: 'Gray', bg: 'bg-gray-500' },
+          { value: 'royal', name: 'Royal', bg: 'bg-blue-600' },
+          { value: 'purple', name: 'Purple', bg: 'bg-purple-600' },
+          { value: 'orange', name: 'Orange', bg: 'bg-orange-500' },
+          { value: 'yellow', name: 'Yellow', bg: 'bg-yellow-400' },
+          { value: 'pink', name: 'Pink', bg: 'bg-pink-500' },
+          { value: 'brown', name: 'Brown', bg: 'bg-amber-800' },
+          { value: 'blue', name: 'Blue', bg: 'bg-blue-600' },
+          { value: 'silver', name: 'Silver', bg: 'bg-gray-300' },
+          { value: 'gold', name: 'Gold', bg: 'bg-yellow-600' },
+          { value: 'solid-white-blend', name: 'Solid White Blend', style: 'background-color: #FCFCFC', border: 'border-gray-300' },
+          { value: 'heather-ice-blue', name: 'Heather Ice Blue', style: 'background-color: #e8fdff' },
+          { value: 'heather-natural', name: 'Heather Natural', style: 'background-color: #f9e9cf' },
+          { value: 'heather-prism-ice-blue', name: 'Heather Prism Ice Blue', style: 'background-color: #c3e2e3' },
+          { value: 'athletic-heather', name: 'Athletic Heather', style: 'background-color: #cececc' },
+          { value: 'heather-prism-peach', name: 'Heather Prism Peach', style: 'background-color: #f3c2b2' },
+          { value: 'heather-prism-mint', name: 'Heather Prism Mint', style: 'background-color: #aad5b9' },
+          { value: 'heather-carolina-blue', name: 'Heather Carolina Blue', style: 'background-color: #ABC3EF' },
+          { value: 'heather-prism-dusty-blue', name: 'Heather Prism Dusty Blue', style: 'background-color: #a5c8bc' },
+          { value: 'heather-yellow-gold', name: 'Heather Yellow Gold', style: 'background-color: #FFB834' },
+          { value: 'heather-prism-lilac', name: 'Heather Prism Lilac', style: 'background-color: #deafcd' },
+          { value: 'heather-columbia-blue', name: 'Heather Columbia Blue', style: 'background-color: #7d95e8' },
+          { value: 'heather-team-purple', name: 'Heather Team Purple', style: 'background-color: #b680c1' },
+          { value: 'heather-aqua', name: 'Heather Aqua', style: 'background-color: #27a8c8' },
+          { value: 'heather-autumn', name: 'Heather Autumn', style: 'background-color: #d5743f' },
+          { value: 'heather-mauve', name: 'Heather Mauve', style: 'background-color: #b2736f' },
+          { value: 'heather-grass-green', name: 'Heather Grass Green', style: 'background-color: #477749' },
+          { value: 'heather-slate', name: 'Heather Slate', style: 'background-color: #4c626e' },
+          { value: 'heather-olive', name: 'Heather Olive', style: 'background-color: #5c5531' }
+        ],
+        note: 'Embroidery available on all colors.'
+      },
+      sublimation: {
+        colors: [
+          { value: 'solid-white-blend', name: 'Solid White Blend', style: 'background-color: #FCFCFC', border: 'border-gray-300' },
+          { value: 'heather-ice-blue', name: 'Heather Ice Blue', style: 'background-color: #e8fdff' },
+          { value: 'heather-natural', name: 'Heather Natural', style: 'background-color: #f9e9cf' },
+          { value: 'heather-prism-ice-blue', name: 'Heather Prism Ice Blue', style: 'background-color: #c3e2e3' },
+          { value: 'athletic-heather', name: 'Athletic Heather', style: 'background-color: #cececc' },
+          { value: 'heather-prism-peach', name: 'Heather Prism Peach', style: 'background-color: #f3c2b2' },
+          { value: 'heather-prism-mint', name: 'Heather Prism Mint', style: 'background-color: #aad5b9' },
+          { value: 'heather-carolina-blue', name: 'Heather Carolina Blue', style: 'background-color: #ABC3EF' },
+          { value: 'heather-prism-dusty-blue', name: 'Heather Prism Dusty Blue', style: 'background-color: #a5c8bc' },
+          { value: 'heather-yellow-gold', name: 'Heather Yellow Gold', style: 'background-color: #FFB834' },
+          { value: 'heather-prism-lilac', name: 'Heather Prism Lilac', style: 'background-color: #deafcd' },
+          { value: 'heather-columbia-blue', name: 'Heather Columbia Blue', style: 'background-color: #7d95e8' },
+          { value: 'heather-team-purple', name: 'Heather Team Purple', style: 'background-color: #b680c1' },
+          { value: 'heather-aqua', name: 'Heather Aqua', style: 'background-color: #27a8c8' },
+          { value: 'heather-autumn', name: 'Heather Autumn', style: 'background-color: #d5743f' },
+          { value: 'heather-mauve', name: 'Heather Mauve', style: 'background-color: #b2736f' },
+          { value: 'heather-grass-green', name: 'Heather Grass Green', style: 'background-color: #477749' },
+          { value: 'heather-slate', name: 'Heather Slate', style: 'background-color: #4c626e' },
+          { value: 'heather-olive', name: 'Heather Olive', style: 'background-color: #5c5531' },
+          { value: 'heather-red', name: 'Heather Red', style: 'background-color: #D44f5b' }
+        ],
+        note: 'Sublimation works on poly-blend shirts in these heather colors.'
+      }
+    };
+
+    /* --------------------- helpers --------------------- */
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const text = document.getElementById('toastText');
+      text.textContent = msg;
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 3200);
+    }
+
+    function updateColorOptions(printingMethod = null) {
+      const colorContainer = document.getElementById('colorOptions');
+      const colorNote = document.getElementById('colorNote');
+      const colorNoteText = document.getElementById('colorNoteText');
+
+      if (!printingMethod) {
+        colorContainer.innerHTML = '';
+        colorNote.classList.add('hidden');
+        return;
+      }
+
+      const options = colorOptions[printingMethod];
+      colorNote.classList.remove('hidden');
+      colorNoteText.textContent = options.note || '';
+
+      colorContainer.innerHTML = options.colors.map(color => `
+        <label class="flex flex-col items-center cursor-pointer color-option">
+          <input type="checkbox" name="colors" value="${color.value}" class="sr-only">
+          <div class="w-12 h-12 ${color.bg || ''} ${color.border || ''} ${color.border ? 'border-2' : ''} rounded-full shadow-sm hover:scale-110 transition-transform"
+               ${color.style ? `style="${color.style}"` : ''}></div>
+          <span class="text-xs mt-1">${color.name}</span>
+        </label>
+      `).join('');
+
+      attachColorListeners();
+    }
+
+    function attachColorListeners() {
+      document.querySelectorAll('input[name="colors"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+          const colorDiv = this.nextElementSibling;
+          colorDiv.classList.toggle('ring-4', this.checked);
+          colorDiv.classList.toggle('ring-blue-400', this.checked);
+          colorDiv.classList.toggle('ring-offset-2', this.checked);
+        });
+      });
+    }
+
+    // highlight selected radio "card" + update colors on printing change
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        document.querySelectorAll(`input[name="${this.name}"]`).forEach(r => {
+          const label = r.closest('label');
+          if (label) label.classList.remove('border-blue-500', 'bg-blue-50');
+        });
+        const sel = this.closest('label');
+        if (sel) sel.classList.add('border-blue-500', 'bg-blue-50');
+        if (this.name === 'printing') updateColorOptions(this.value);
+      });
+    });
+
+    // init
+    updateColorOptions();
+
+    // file upload UI (no alerts)
+    function handleFileUpload(input) {
+      const fileList = document.getElementById('fileList');
+      const files = Array.from(input.files);
+      if (files.length === 0) { fileList.classList.add('hidden'); return; }
+
+      fileList.classList.remove('hidden');
+      fileList.innerHTML = '';
+      files.forEach((file, index) => {
+        if (file.size > 10 * 1024 * 1024) {
+          showToast(`"${file.name}" is too large (max 10MB).`);
+          return;
+        }
+        const fileItem = document.createElement('div');
+        fileItem.className = 'flex items-center justify-between bg-gray-50 p-3 rounded-lg';
+        fileItem.innerHTML = `
+          <div class="flex items-center">
+            <svg class="h-5 w-5 text-gray-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="text-sm font-medium text-gray-700">${file.name}</span>
+            <span class="text-xs text-gray-500 ml-2">(${(file.size / 1024 / 1024).toFixed(1)}MB)</span>
+          </div>
+          <button type="button" class="text-red-500 hover:text-red-700" data-index="${index}" aria-label="Remove file">✕</button>
+        `;
+        fileList.appendChild(fileItem);
+      });
+
+      // remove handler
+      fileList.querySelectorAll('button[data-index]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = +btn.getAttribute('data-index');
+          const dt = new DataTransfer();
+          Array.from(document.getElementById('designFiles').files).forEach((f, i) => { if (i !== idx) dt.items.add(f); });
+          const inputEl = document.getElementById('designFiles');
+          inputEl.files = dt.files;
+          handleFileUpload(inputEl);
+        });
+      });
+    }
+    window.handleFileUpload = handleFileUpload;
+
+    // drag & drop
+    const dropZone = document.querySelector('.border-dashed');
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-blue-400','bg-blue-50'); });
+    dropZone.addEventListener('dragleave', (e) => { e.preventDefault(); dropZone.classList.remove('border-blue-400','bg-blue-50'); });
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault(); dropZone.classList.remove('border-blue-400','bg-blue-50');
+      const input = document.getElementById('designFiles'); input.files = e.dataTransfer.files; handleFileUpload(input);
+    });
+
+    // SUBMIT (no network). Show success + summary.
+    document.getElementById('quoteForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // basic validity check so browsers show native UI
+      if (!this.reportValidity()) return;
+
+      const formData = new FormData(this);
+
+      // collect colors (checkboxes generated dynamically)
+      const colors = Array.from(document.querySelectorAll('input[name="colors"]:checked')).map(c => c.value);
+      // collect print locations (checkboxes)
+      const locations = Array.from(document.querySelectorAll('input[name="print_locations"]:checked')).map(c => c.value);
+
+      // collect file names & sizes (cannot upload anywhere in this demo)
+      const files = Array.from(document.getElementById('designFiles').files).map(f => ({
+        name: f.name, sizeMB: +(f.size / 1024 / 1024).toFixed(2)
+      }));
+
+      // build plain object
+      const data = {
+        full_name: formData.get('full_name') || '',
+        company_name: formData.get('company_name') || '',
+        email: formData.get('email') || '',
+        style: formData.get('style') || '',
+        quantity: Number(formData.get('quantity') || 0),
+        sizes: {
+          sm: Number(formData.get('size_sm') || 0),
+          md: Number(formData.get('size_md') || 0),
+          lg: Number(formData.get('size_lg') || 0),
+          xl: Number(formData.get('size_xl') || 0),
+          '2xl': Number(formData.get('size_2xl') || 0),
+          '3xl': Number(formData.get('size_3xl') || 0),
+          '4xl': Number(formData.get('size_4xl') || 0),
+        },
+        printing: formData.get('printing') || '',
+        colors,
+        print_locations: locations,
+        notes: formData.get('notes') || '',
+        timeline: formData.get('timeline') || '',
+        attachments: files
+      };
+
+      // show success panel with JSON summary
+      const form = document.getElementById('quoteForm');
+      const panel = document.getElementById('successPanel');
+      const summary = document.getElementById('summary');
+      summary.textContent = JSON.stringify(data, null, 2);
+      form.classList.add('hidden');
+      panel.classList.remove('hidden');
+      showToast('Saved locally. Copy the summary to send via email.');
+    });
+
+    // copy + edit again
+    document.getElementById('copyBtn').addEventListener('click', async () => {
+      const text = document.getElementById('summary').textContent;
+      try {
+        await navigator.clipboard.writeText(text);
+        showToast('Summary copied to clipboard.');
+      } catch {
+        showToast('Select the text and press Ctrl/Cmd+C to copy.');
+      }
+    });
+    document.getElementById('editAgain').addEventListener('click', () => {
+      document.getElementById('successPanel').classList.add('hidden');
+      document.getElementById('quoteForm').classList.remove('hidden');
+    });
+  </script>
+</body>
+</html>
+
