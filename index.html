@@ -54,7 +54,7 @@
               </label>
               <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
                 <input type="radio" name="style" value="performance" class="text-blue-600 mr-3">
-                <div><div class="font-medium">Performance</div><div class="text-sm text-gray-500">Moisture-Wicking</div></div>
+                <div><div class="font-medium">Performance</div><div class="text-sm text-gray-500">Moisture-Wicking, 100% polyester </div></div>
               </label>
             </div>
           </div>
@@ -174,18 +174,13 @@
         </p>
       </form>
 
-      <!-- SUCCESS -->
+      <!-- SUCCESS (clean) -->
       <div id="successPanel" class="p-8 hidden">
-        <div class="flex items-center gap-3 text-green-700 mb-4">
+        <div class="flex items-center gap-3 text-green-700 mb-2">
           <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none"><path d="M20 7L9 18l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <h2 class="text-xl font-semibold" id="successTitle">Thanks! Your quote request was sent.</h2>
         </div>
-        <p class="text-gray-600 mb-4" id="successHint">We emailed the details to our inbox. You can copy the summary below for your records.</p>
-        <pre id="summary" class="bg-gray-50 rounded-lg border p-4 text-sm overflow-auto whitespace-pre-wrap"></pre>
-        <div class="mt-4 flex flex-wrap gap-3">
-          <button id="copyBtn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg">Copy Summary</button>
-          <button id="editAgain" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium px-4 py-2 rounded-lg">Edit Again</button>
-        </div>
+        <p class="text-gray-600">We’ve got your details and will email you shortly.</p>
       </div>
     </div>
   </div>
@@ -200,7 +195,6 @@
   <script>
     /* ====== CONFIG ====== */
     const API_URL = 'https://tshirt-quote-api.wickedbuilds.workers.dev';
-
 
     /* ====== color options (brown corrected) ====== */
     const colorOptions = {
@@ -225,7 +219,7 @@
         { value:'navy', name:'Navy', style:'background-color:#1a2330' },
         { value:'black', name:'Black', style:'background-color:#141313' },
         { value:'maroon', name:'Maroon', style:'background-color:#47001b' },
-        { value:'brown', name:'Brown', style:'background-color:#8B4513' }, /* <-- fixed */
+        { value:'brown', name:'Brown', style:'background-color:#8B4513' },
         { value:'solid-white-blend', name:'Solid White Blend', style:'background-color:#FCFCFC', border:'border-gray-300' },
         { value:'heather-ice-blue', name:'Heather Ice Blue', style:'background-color:#e8fdff' },
         { value:'heather-natural', name:'Heather Natural', style:'background-color:#f9e9cf' },
@@ -293,7 +287,7 @@
         { value:'orange', name:'Orange', style:'background-color:#f97316' },
         { value:'yellow', name:'Yellow', style:'background-color:#facc15' },
         { value:'pink', name:'Pink', style:'background-color:#ec4899' },
-        { value:'brown', name:'Brown', style:'background-color:#8B4513' }, /* <-- fixed */
+        { value:'brown', name:'Brown', style:'background-color:#8B4513' },
         { value:'blue', name:'Blue', style:'background-color:#2563eb' },
         { value:'silver', name:'Silver', style:'background-color:#d1d5db' },
         { value:'gold', name:'Gold', style:'background-color:#ca8a04' },
@@ -322,7 +316,12 @@
       ], note:'Sublimation works on poly-blend shirts in these heather colors.' },
     };
 
-    function showToast(msg){ const t=document.getElementById('toast'); document.getElementById('toastText').textContent=msg; t.classList.remove('hidden'); setTimeout(()=>t.classList.add('hidden'),3600); }
+    function showToast(msg){
+      const t=document.getElementById('toast');
+      document.getElementById('toastText').textContent=msg;
+      t.classList.remove('hidden');
+      setTimeout(()=>t.classList.add('hidden'),3600);
+    }
 
     function updateColorOptions(method=null){
       const container=document.getElementById('colorOptions');
@@ -443,7 +442,6 @@
         const res=await fetch(API_URL,{ method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
         const json=await res.json().catch(()=>({}));
         if(res.ok && json.ok){
-          document.getElementById('summary').textContent = JSON.stringify(payload, null, 2);
           document.getElementById('quoteForm').classList.add('hidden');
           document.getElementById('successPanel').classList.remove('hidden');
           showToast('Sent! Check your inbox.');
@@ -461,16 +459,6 @@
     });
 
     const fileToBase64=(file)=>new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(String(r.result)); r.onerror=reject; r.readAsDataURL(file); });
-
-    document.getElementById('copyBtn').addEventListener('click', async ()=>{
-      const text=document.getElementById('summary').textContent;
-      try{ await navigator.clipboard.writeText(text); showToast('Summary copied to clipboard.'); }
-      catch{ showToast('Select the text and press Ctrl/Cmd+C to copy.'); }
-    });
-    document.getElementById('editAgain').addEventListener('click', ()=>{
-      document.getElementById('successPanel').classList.add('hidden');
-      document.getElementById('quoteForm').classList.remove('hidden');
-    });
   </script>
 </body>
 </html>
