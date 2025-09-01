@@ -16,7 +16,7 @@
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
       <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-6">
         <h1 class="text-3xl font-bold text-white">Wicked Builds T-Shirt Quote Request</h1>
-        <p class="text-blue-100 mt-2">Submit to get an estimate for your custom t-shirt order</p>
+        <p class="text-blue-100 mt-2">Get an instant estimate for your custom t-shirt order</p>
       </div>
 
       <form id="quoteForm" class="p-8 space-y-8" novalidate>
@@ -54,7 +54,7 @@
               </label>
               <label class="flex items-center p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
                 <input type="radio" name="style" value="performance" class="text-blue-600 mr-3">
-                <div><div class="font-medium">Performance</div><div class="text-sm text-gray-500">Moisture-Wicking, 100% Polyester </div></div>
+                <div><div class="font-medium">Performance</div><div class="text-sm text-gray-500">Moisture-Wicking, 100% Polyester</div></div>
               </label>
             </div>
           </div>
@@ -81,7 +81,7 @@
 
           <!-- Printing -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">Printing Method - Once you select a printing method your color choices will show below*</label>
+            <label class="block text-sm font-medium text-gray-700 mb-3">Printing Method - Once you select a printing method your color options will show below. *</label>
             <div class="space-y-3">
               <label class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:border-blue-300 transition-colors">
                 <input type="radio" name="printing" value="screen" class="text-blue-600 mt-1 mr-3" required>
@@ -104,43 +104,33 @@
 
           <!-- Colors -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-3">T-Shirt Colors - Once you select a printing method above your color choices will show below *</label>
+            <label class="block text-sm font-medium text-gray-700 mb-3">T-Shirt Colors - Once you select a printing method above, your color options will show below. *</label>
             <div id="colorNote" class="text-sm text-blue-600 mb-3 hidden">
               <span id="colorNoteText"></span>
             </div>
             <div id="colorOptions" class="grid grid-cols-4 md:grid-cols-8 gap-3"></div>
           </div>
 
-          <!-- Print Locations -->
+          <!-- Artwork (MULTI) -->
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Print Locations</label>
-            <div class="space-y-2">
-              <label class="flex items-center"><input type="checkbox" name="print_locations" value="front_center" class="text-blue-600 mr-2"><span class="text-sm">Front Center</span></label>
-              <label class="flex items-center"><input type="checkbox" name="print_locations" value="front_top_left_chest" class="text-blue-600 mr-2"><span class="text-sm">Front Top Left Chest</span></label>
-              <label class="flex items-center"><input type="checkbox" name="print_locations" value="back" class="text-blue-600 mr-2"><span class="text-sm">Back</span></label>
-              <label class="flex items-center"><input type="checkbox" name="print_locations" value="left_sleeve" class="text-blue-600 mr-2"><span class="text-sm">Left Sleeve</span></label>
-              <label class="flex items-center"><input type="checkbox" name="print_locations" value="right_sleeve" class="text-blue-600 mr-2"><span class="text-sm">Right Sleeve</span></label>
-            </div>
-          </div>
-
-          <!-- Upload -->
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Design File (one image)</label>
-            <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Design Files (multiple)</label>
+            <div id="dropZone" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-400 transition-colors">
               <div class="mb-4">
                 <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                   <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
               </div>
-              <input name="attachments" type="file" id="designFiles" accept=".png,.jpg,.jpeg,.gif,.webp,.svg,.pdf" class="hidden" onchange="handleFileUpload(this)">
+              <input name="attachments" type="file" id="designFiles" multiple accept=".png,.jpg,.jpeg,.gif,.webp,.svg,.pdf" class="hidden">
               <label for="designFiles" class="cursor-pointer">
-                <span class="text-blue-600 font-medium hover:text-blue-500">Click to upload a file</span>
+                <span class="text-blue-600 font-medium hover:text-blue-500">Click to upload files</span>
                 <span class="text-gray-500"> or drag and drop</span>
               </label>
-              <p class="text-sm text-gray-500 mt-2">PNG, JPG, GIF, WEBP (inline preview). SVG/PDF attach only. Max 10MB.</p>
+              <p class="text-sm text-gray-500 mt-2">PNG, JPG, GIF, WEBP (inline preview). SVG/PDF attach only. Max 10MB each.</p>
 
-              <div id="fileList" class="mt-4 space-y-2 hidden"></div>
-              <img id="singlePreview" class="hidden w-40 h-40 object-cover rounded border mx-auto mt-3" alt="Preview">
+              <div id="filesWrap" class="mt-5 space-y-3 hidden"></div>
+              <div id="artActions" class="mt-3 hidden">
+                <button type="button" id="clearAll" class="text-sm px-3 py-1 rounded border hover:bg-gray-50">Clear all</button>
+              </div>
             </div>
           </div>
 
@@ -172,6 +162,7 @@
         <p id="noteLine" class="text-sm text-gray-500 text-center">
           <span class="inline-block w-2 h-2 bg-blue-600 rounded-full mr-2"></span>
           Thank you for your inquiry! We’ll email the details to our team after you click submit.
+
         </p>
       </form>
 
@@ -346,6 +337,7 @@
       });
     }
 
+    // highlight selected radio "cards"
     document.querySelectorAll('input[type="radio"]').forEach(r=>{
       r.addEventListener('change',function(){
         document.querySelectorAll(`input[name="${this.name}"]`).forEach(i=>{ const l=i.closest('label'); if(l) l.classList.remove('border-blue-500','bg-blue-50');});
@@ -355,64 +347,141 @@
     });
     updateColorOptions();
 
-    // drag & drop (single file)
-    const dropZone=document.querySelector('.border-dashed');
-    dropZone.addEventListener('dragover',e=>{e.preventDefault(); dropZone.classList.add('border-blue-400','bg-blue-50');});
-    dropZone.addEventListener('dragleave',e=>{e.preventDefault(); dropZone.classList.remove('border-blue-400','bg-blue-50');});
-    dropZone.addEventListener('drop',e=>{
-      e.preventDefault(); dropZone.classList.remove('border-blue-400','bg-blue-50');
-      const dt=new DataTransfer(); if(e.dataTransfer.files[0]) dt.items.add(e.dataTransfer.files[0]);
-      const input=document.getElementById('designFiles'); input.files=dt.files; handleFileUpload(input);
+    /* ========= MULTI FILE + PER-IMAGE PLACEMENT ========= */
+    const designInput = document.getElementById('designFiles');
+    const dropZone = document.getElementById('dropZone');
+    const filesWrap = document.getElementById('filesWrap');
+    const artActions = document.getElementById('artActions');
+
+    // in-memory list
+    let artItems = [];
+
+    function renderArtList(){
+      filesWrap.innerHTML = '';
+      if(artItems.length === 0){
+        filesWrap.classList.add('hidden');
+        artActions.classList.add('hidden');
+        return;
+      }
+      filesWrap.classList.remove('hidden');
+      artActions.classList.remove('hidden');
+
+      artItems.forEach(item=>{
+        const isPreviewable = /image\/(png|jpe?g|gif|webp)/i.test(item.file.type);
+        const url = isPreviewable ? URL.createObjectURL(item.file) : '';
+        const row = document.createElement('div');
+        row.className = 'flex items-center justify-between gap-3 p-3 rounded-lg border bg-gray-50';
+
+        row.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="w-16 h-16 rounded border bg-white overflow-hidden flex items-center justify-center">
+              ${isPreviewable ? `<img src="${url}" alt="" class="w-full h-full object-cover">`
+                              : `<div class="text-xs text-gray-500 px-2 text-center">${item.file.type || 'file'}</div>`}
+            </div>
+            <div>
+              <div class="text-sm font-medium text-gray-800">${item.file.name}</div>
+              <div class="text-xs text-gray-500">${(item.file.size/1024/1024).toFixed(2)} MB</div>
+              <label class="text-xs text-gray-600 mt-2 block">Placement</label>
+              <select data-id="${item.id}" class="mt-1 text-sm border rounded px-2 py-1">
+                <option value="front" ${item.placement==='front_center'?'selected':''}>Front Center</option>
+		<option value="front" ${item.placement==='front_top_left'?'selected':''}>Front Top Left</option>
+                <option value="back" ${item.placement==='back'?'selected':''}>Back</option>
+                <option value="left_sleeve" ${item.placement==='left_sleeve'?'selected':''}>Left Sleeve</option>
+                <option value="right_sleeve" ${item.placement==='right_sleeve'?'selected':''}>Right Sleeve</option>
+              </select>
+            </div>
+          </div>
+          <button type="button" class="shrink-0 text-red-500 hover:text-red-700" data-remove="${item.id}" aria-label="Remove">✕</button>
+        `;
+        filesWrap.appendChild(row);
+      });
+
+      // handle placement changes
+      filesWrap.querySelectorAll('select[data-id]').forEach(sel=>{
+        sel.addEventListener('change', ()=>{
+          const id = sel.getAttribute('data-id');
+          const it = artItems.find(x=>String(x.id)===String(id));
+          if(it){ it.placement = sel.value; }
+        });
+      });
+
+      // handle remove
+      filesWrap.querySelectorAll('button[data-remove]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const id = btn.getAttribute('data-remove');
+          artItems = artItems.filter(x=>String(x.id)!==String(id));
+          renderArtList();
+        });
+      });
+    }
+
+    function addFiles(fileList){
+      const MAX_MB = 10;
+      const incoming = Array.from(fileList || []);
+      if(incoming.length === 0) return;
+
+      incoming.forEach(file=>{
+        if(file.size > MAX_MB*1024*1024){
+          showToast(`"${file.name}" is too large (max ${MAX_MB}MB). Skipped.`);
+          return;
+        }
+        artItems.push({
+          id: `${Date.now()}_${Math.random().toString(36).slice(2,8)}`,
+          file,
+          placement: 'front'
+        });
+      });
+      renderArtList();
+    }
+
+    designInput.addEventListener('change', ()=> addFiles(designInput.files));
+
+    // drag & drop
+    ;['dragenter','dragover'].forEach(ev=>{
+      dropZone.addEventListener(ev, e=>{ e.preventDefault(); dropZone.classList.add('border-blue-400','bg-blue-50'); });
+    });
+    ;['dragleave','drop'].forEach(ev=>{
+      dropZone.addEventListener(ev, e=>{ e.preventDefault(); dropZone.classList.remove('border-blue-400','bg-blue-50'); });
+    });
+    dropZone.addEventListener('drop', e => addFiles(e.dataTransfer.files));
+
+    document.getElementById('clearAll').addEventListener('click', ()=>{
+      artItems = [];
+      designInput.value = '';
+      renderArtList();
     });
 
-    let currentFile = null; // File | null
-    function handleFileUpload(input){
-      const fileList=document.getElementById('fileList');
-      const prev=document.getElementById('singlePreview');
-      currentFile = input.files[0] || null;
+    // base64 helper
+    const fileToBase64 = (file) => new Promise((resolve, reject)=>{
+      const r = new FileReader();
+      r.onload = () => resolve(String(r.result));
+      r.onerror = reject;
+      r.readAsDataURL(file);
+    });
 
-      fileList.innerHTML='';
-      if(!currentFile){ fileList.classList.add('hidden'); prev.classList.add('hidden'); prev.removeAttribute('src'); return; }
-
-      if(currentFile.size > 10*1024*1024){ showToast(`"${currentFile.name}" is too large (max 10MB).`); input.value=''; currentFile=null; prev.classList.add('hidden'); prev.removeAttribute('src'); return; }
-
-      fileList.classList.remove('hidden');
-      const row=document.createElement('div');
-      row.className='flex items-center justify-between bg-gray-50 p-3 rounded-lg';
-      row.innerHTML=`
-        <div class="flex items-center">
-          <svg class="h-5 w-5 text-gray-400 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
-          <span class="text-sm font-medium text-gray-700">${currentFile.name}</span>
-          <span class="text-xs text-gray-500 ml-2">(${(currentFile.size/1024/1024).toFixed(1)}MB)</span>
-        </div>
-        <button type="button" class="text-red-500 hover:text-red-700" aria-label="Remove file">✕</button>
-      `;
-      fileList.appendChild(row);
-      row.querySelector('button').addEventListener('click',()=>{ input.value=''; currentFile=null; handleFileUpload(input); });
-
-      // preview if raster image
-      if (/image\/(png|jpe?g|gif|webp)/i.test(currentFile.type)) {
-        const reader=new FileReader();
-        reader.onload=() => { prev.src=String(reader.result); prev.classList.remove('hidden'); };
-        reader.readAsDataURL(currentFile);
-      } else { prev.classList.add('hidden'); prev.removeAttribute('src'); }
-    }
-    window.handleFileUpload = handleFileUpload;
-
-    // submit
+    /* ========= SUBMIT ========= */
     document.getElementById('quoteForm').addEventListener('submit', async function(e){
       e.preventDefault();
       if(!this.reportValidity()) return;
 
-      const fd=new FormData(this);
+      const fd = new FormData(this);
       const colors = Array.from(document.querySelectorAll('input[name="colors"]:checked')).map(c=>c.value);
-      const locations = Array.from(document.querySelectorAll('input[name="print_locations"]:checked')).map(c=>c.value);
 
-      let attachments = [];
-      if(currentFile){
-        const base64 = await fileToBase64(currentFile);
-        const payloadB64 = (base64.split(',')[1] || base64);
-        attachments.push({ filename: currentFile.name, mime: currentFile.type || 'application/octet-stream', content_base64: payloadB64 });
+      // Build attachments with placement
+      const attachments = [];
+      for(const item of artItems){
+        try{
+          const b64 = await fileToBase64(item.file);
+          attachments.push({
+            filename: item.file.name,
+            mime: item.file.type || 'application/octet-stream',
+            content_base64: (b64.split(',')[1] || b64),
+            placement: item.placement   // front | back | left_sleeve | right_sleeve
+          });
+        }catch(err){
+          console.error('file read error:', err);
+          showToast(`Failed to read "${item.file.name}".`);
+        }
       }
 
       const payload = {
@@ -432,7 +501,6 @@
         },
         printing: fd.get('printing') || '',
         colors,
-        print_locations: locations,
         notes: fd.get('notes') || '',
         timeline: fd.get('timeline') || '',
         attachments
@@ -458,9 +526,6 @@
         btn.disabled=false; btn.textContent=original;
       }
     });
-
-    const fileToBase64=(file)=>new Promise((resolve,reject)=>{ const r=new FileReader(); r.onload=()=>resolve(String(r.result)); r.onerror=reject; r.readAsDataURL(file); });
   </script>
 </body>
 </html>
-
